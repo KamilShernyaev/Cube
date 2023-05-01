@@ -8,6 +8,8 @@ public class DoorInteractable : MonoBehaviour, IInteractable
 
     [SerializeField] private string interactText;
 
+   
+
     private void Start() 
     {
         _doorScreen.SetActive(false);    
@@ -29,5 +31,4 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         Time.timeScale = 0;
         _doorScreen.SetActive(true);
     }
-
 }
