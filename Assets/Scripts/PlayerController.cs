@@ -6,11 +6,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    private PlayerInputAction playerInputAction = null;
+    private PlayerAnimator playerAnimator;
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float rotationSpeed = 10f;
     [SerializeField] private float interactRange = 1f;
 
-    private PlayerInputAction playerInputAction = null;
     private Rigidbody rb = null;
     private Vector3 directionMovement = Vector3.zero;
 
@@ -18,9 +19,15 @@ public class PlayerController : MonoBehaviour
     {
         playerInputAction = new PlayerInputAction();
         rb = GetComponent<Rigidbody>();
+        playerAnimator = GetComponentInChildren<PlayerAnimator>();
+    }
+    
+    private void FixedUpdate() 
+    {
+        Movement();
     }
 
-    private void OnEnable() 
+     private void OnEnable() 
     {
         playerInputAction.Enable();
         playerInputAction.Player.Movement.performed += PlayerInputAction_Movement;
@@ -38,19 +45,16 @@ public class PlayerController : MonoBehaviour
         playerInputAction.Player.Interaction.performed -=  PlayerInputAction_Interaction;
     }
 
-    private void FixedUpdate() 
-    {
-        Movement();
-    }
-
     private void PlayerInputAction_Movement(InputAction.CallbackContext value)
     {
-        directionMovement = value.ReadValue<Vector2>();
+        directionMovement= value.ReadValue<Vector2>();
+        playerAnimator.MovementAnimation(directionMovement);
     }
 
     private void PlayerInputAction_Movement_Canceled(InputAction.CallbackContext value)
     {
-        directionMovement = Vector2.zero;
+        directionMovement = value.ReadValue<Vector2>();
+        playerAnimator.MovementAnimation(directionMovement);
     }
 
     private void PlayerInputAction_Interaction(InputAction.CallbackContext context)
@@ -62,10 +66,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Movement()
+    public void Movement()
     {
         Vector3 moveDirection = new Vector3(directionMovement.x, 0, directionMovement.y).normalized;
-        transform.forward = Vector3.Lerp(transform.forward, moveDirection, rotationSpeed * Time.deltaTime);
+        transform.forward = Vector3.Slerp(transform.forward, moveDirection, rotationSpeed * Time.deltaTime);
         rb.velocity = moveDirection * moveSpeed;
     }
 
