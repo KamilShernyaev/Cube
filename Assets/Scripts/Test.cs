@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Test : MonoBehaviour
 {
@@ -13,8 +14,49 @@ public class Test : MonoBehaviour
     private bool _isOpen;
 
     private bool _isColorRed = true;
+
+   [SerializeField] private TextMeshProUGUI _codeText;
+   string _codeTextValue = "";
+   public string sageCode;
+//    public GameObject CodePanel;
+
+   private bool _isDoorOpened = false;
     
-    
+    private void Update() 
+    {
+        _codeText.text = _codeTextValue;
+
+        if(_codeTextValue == sageCode)
+        {
+            OpenDoorButton();
+        }
+
+        if(_codeTextValue.Length >= 6 )
+        {
+            _codeTextValue = "";
+        }
+
+
+    }
+
+    // private void OnTriggerEnter(Collider other) 
+    // {
+    //     if(other.tag == "Player")
+    //     {
+    //         _isAtDoor = true;
+    //     }    
+    // }
+
+    // private void OnTriggerExit(Collider other) 
+    // {
+    //     _isAtDoor = false;
+    //     CodePanel.SetActive(false);
+    // }
+
+    public void AddDigit(string digit)
+    {
+        _codeTextValue += digit;
+    }
     
     public void OpenDoorButton()
     {
