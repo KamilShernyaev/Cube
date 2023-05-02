@@ -47,6 +47,19 @@ public class PlayerController : MonoBehaviour
         CharacterResting();
     }
 
+    // private void Update() 
+    // {
+    //     Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange);
+    //     foreach (Collider collider in colliderArray)
+    //     {
+    //         if (collider.TryGetComponent(out Test doorInteractable))
+    //         {
+    //             doorInteractable.ToggleDoor();
+    //             doorInteractable.PushButton();
+    //         }
+    //     }    
+    // }
+
     private void OnEnable() 
     {
         playerInputAction.Enable();
