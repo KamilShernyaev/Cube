@@ -1600,6 +1600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd48e024b0a67a84d9778eb37236e0c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _doorScreen: {fileID: 0}
   interactText: Open Door
 --- !u!1001 &947978053
 PrefabInstance:
@@ -3313,7 +3314,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1875101223}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.8836145, y: 0.521, z: 2.67}
+  m_LocalPosition: {x: 1.8836145, y: 0.521, z: 3.135}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
