@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
         if (selectedPlayer == null)
         {
             selectedPlayer = playerControllerArray[0];
+            selectedPlayer.SetIsSelectedCharacter(true);
         }
         if(playerControllerArray == null)
         {
@@ -25,14 +26,33 @@ public class GameManager : MonoBehaviour
         {
             if(playerController != selectedPlayer)
             {
-                playerController.enabled = false;
+                playerController.SetIsSelectedCharacter(false);
             }
             else
             {
-                selectedPlayer.enabled = true;
+                selectedPlayer.SetIsSelectedCharacter(true);
             }
         }
     }
 
-    public PlayerController SetPlayerController(PlayerController playerController) => selectedPlayer = playerController;
+    public void SetFatigueCharacter(PlayerController playerController)
+    {
+        playerController.SetIsSelectedCharacter(false);
+        for (int i = 0; i < playerControllerArray.Length; i++)
+        {
+            if(playerControllerArray[i].GetRecreation() != true)
+            {
+                SetPlayerController(playerControllerArray[i]);
+                selectedPlayer.SetIsSelectedCharacter(true);
+                break;
+            }
+        }
+    }
+
+    public void SetPlayerController(PlayerController playerController)
+    {   
+        selectedPlayer = playerController;
+    }
+
+    public PlayerController GetSelectedPlayer() {return selectedPlayer;}
 }
