@@ -2,47 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChestInteraction : MonoBehaviour
+public class ChestInteraction : MonoBehaviour,IInteractable
 {
     // public GameObject chestUI; // UI для отображения содержимого сундука
-    public Transform playerTransform; // позиция игрока
+    // public Transform playerTransform; // позиция игрока
     public GameObject[] lootPrefabs; // массив предметов, которые могут выпадать из сундука
     public float lootDropDistance = 2f; // расстояние, на котором предметы будут выпадать от сундука
 
-    private bool isInRange; // флаг, находится ли игрок рядом с сундуком
-    private bool isOpen; // флаг, открыт ли сундук
-
-    private void Update()
-    {
-        if (isInRange && Input.GetKeyDown(KeyCode.E))
-        {
-            if (!isOpen)
-            {
-                OpenChest();
-            }
-            else
-            {
-                CloseChest();
-            }
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            isInRange = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            isInRange = false;
-            CloseChest();
-        }
-    }
+    // private bool isInRange; // флаг, находится ли игрок рядом с сундуком
+    public bool isOpen = false; // флаг, открыт ли сундук
 
     private void OpenChest()
     {
@@ -63,9 +31,26 @@ public class ChestInteraction : MonoBehaviour
         }
     }
 
-    private void CloseChest()
+    // private void CloseChest()
+    // {
+    //     isOpen = false;
+    //     // chestUI.SetActive(false); // скрываем UI
+    // }
+
+    public void Interact(Transform interactorTransform)
     {
-        isOpen = false;
-        // chestUI.SetActive(false); // скрываем UI
+        if (!isOpen)
+            {
+                OpenChest();
+            }
+            // else
+            // {
+            //     CloseChest();
+            // }
+    }
+
+    public Transform GetTransform()
+    {
+        return transform;
     }
 }
