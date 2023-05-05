@@ -30,7 +30,7 @@ public class ChangeRoom : MonoBehaviour
     {
         fadeImage.gameObject.SetActive(true);
         isFading = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         float t = 0f;
         while (t < fadingTime)
@@ -49,7 +49,7 @@ public class ChangeRoom : MonoBehaviour
         {
             t += Time.deltaTime;
             float normalizedTime = Mathf.Clamp01(t / fadingTime);
-            fadeImage.color = new Color(0f, 0f, 0f, 1f - normalizedTime);
+            fadeImage.color = new Color(0f, 0f, 0f, 1.5f - normalizedTime);
             yield return null;
         }
 
