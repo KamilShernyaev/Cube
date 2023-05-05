@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     
     [SerializeField] private PlayerController selectedPlayer;
-    [SerializeField] private PlayerController[] playerControllerArray;
+    [SerializeField] private List< PlayerController> playerControllerArray;
+
     private void Awake()
     {
         Instance = this;
@@ -16,10 +17,6 @@ public class GameManager : MonoBehaviour
         {
             selectedPlayer = playerControllerArray[0];
             selectedPlayer.SetIsSelectedCharacter(true);
-        }
-        if(playerControllerArray == null)
-        {
-            playerControllerArray = FindObjectsOfType<PlayerController>();
         }
     }
     private void Start() 
@@ -41,24 +38,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SetFatigueCharacter(PlayerController playerController)
+    public void SetFatigueCharacter(PlayerController prevPlayerController)
     {
-        playerController.SetIsSelectedCharacter(false);
-        for (int i = 0; i < playerControllerArray.Length; i++)
+        prevPlayerController.SetIsSelectedCharacter(false);
+        
+        foreach (PlayerController nextPlayerController in playerControllerArray)
         {
-            if(playerControllerArray[i].GetRecreation() != true)
+            if(!nextPlayerController.GetRecreation())
             {
-                SetPlayerController(playerControllerArray[i]);
+                SetPlayerController(nextPlayerController);
                 selectedPlayer.SetIsSelectedCharacter(true);
                 break;
             }
-        }
+        } 
     }
 
     public void SetPlayerController(PlayerController playerController)
     {   
         selectedPlayer = playerController;
         OnChangePlayer?.Invoke(this, selectedPlayer);
+    }
+
+    public void RemovePlayerController(PlayerController playerController)
+    {
+        playerControllerArray.Remove(playerController);
     }
 
     public PlayerController GetSelectedPlayer() {return selectedPlayer;}

@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour, IGetMadnessSystem
         playerAnimator = GetComponentInChildren<PlayerAnimator>();
         defaultTiredLevel= tiredLevel;
     }
-    
+
     private void FixedUpdate() 
     {
         Movement();
@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour, IGetMadnessSystem
         playerInputAction.Player.Movement.canceled += PlayerInputAction_Movement_Canceled;
     
         playerInputAction.Player.Interaction.performed +=  PlayerInputAction_Interaction;
+
+        madnessSystem.OnBecameInsane += MadnessSystem_OnBecameInsane;
     }
 
     private void OnDisable() 
@@ -61,33 +63,8 @@ public class PlayerController : MonoBehaviour, IGetMadnessSystem
         playerInputAction.Player.Movement.canceled -= PlayerInputAction_Movement_Canceled;
 
         playerInputAction.Player.Interaction.performed -=  PlayerInputAction_Interaction;
-    }
 
-    private void PlayerInputAction_Movement(InputAction.CallbackContext value)
-    {
-        if(!isSelectedCharacter) return;
-
-        directionMovement= value.ReadValue<Vector2>();
-        playerAnimator.MovementAnimation(directionMovement);
-    }
-
-    private void PlayerInputAction_Movement_Canceled(InputAction.CallbackContext value)
-    {
-        if(!isSelectedCharacter) return;
-        
-        directionMovement = value.ReadValue<Vector2>();
-        playerAnimator.MovementAnimation(directionMovement);
-    }
-
-    private void PlayerInputAction_Interaction(InputAction.CallbackContext context)
-    {
-        if(!isSelectedCharacter) return;
-
-        IInteractable interactable = GetInteractableObject();
-        if(interactable!= null)
-        {
-            interactable.Interact(transform);
-        }
+        madnessSystem.OnBecameInsane += MadnessSystem_OnBecameInsane;
     }
 
     public void Movement()
@@ -165,6 +142,49 @@ public class PlayerController : MonoBehaviour, IGetMadnessSystem
     {
         madnessSystem.CalmDown(2f);
     }
+    private void BecameInsane()
+    {
+        GameManager.Instance.RemovePlayerController(this);
+    }
+
+
+    #region EventHandlers
+    private void PlayerInputAction_Movement(InputAction.CallbackContext value)
+    {
+        if(!isSelectedCharacter) return;
+
+        directionMovement= value.ReadValue<Vector2>();
+        playerAnimator.MovementAnimation(directionMovement);
+    }
+
+    private void PlayerInputAction_Movement_Canceled(InputAction.CallbackContext value)
+    {
+        if(!isSelectedCharacter) return;
+        
+        directionMovement = value.ReadValue<Vector2>();
+        playerAnimator.MovementAnimation(directionMovement);
+    }
+
+    private void PlayerInputAction_Interaction(InputAction.CallbackContext context)
+    {
+        if(!isSelectedCharacter) return;
+
+        IInteractable interactable = GetInteractableObject();
+        if(interactable!= null)
+        {
+            interactable.Interact(transform);
+        }
+    }
+
+    private void MadnessSystem_OnBecameInsane(object sender, EventArgs e)
+    {
+        BecameInsane();
+    }
+
+    #endregion
+
+
+    #region Get/Set
     public MadnessSystem GetMadnessSystem() {
         return madnessSystem;
     }
@@ -188,4 +208,5 @@ public class PlayerController : MonoBehaviour, IGetMadnessSystem
     {
         isSelectedCharacter = selectedPlayer;
     }
+    #endregion
 }
