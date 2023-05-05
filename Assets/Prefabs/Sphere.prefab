@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7269505711255799219}
   - component: {fileID: 3332611237909139265}
   - component: {fileID: 7304461453228398392}
+  - component: {fileID: 1789819784}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3547857168437911117}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.32, y: 0.521, z: 3.135}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -93,7 +94,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3547857168437911117}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -110,9 +111,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e4b12a4c498e542a2cb180b3f15a61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Sword
-  description: Arrr
+  itemName: Sedative
+  description: Sedatve
   icon: {fileID: 21300000, guid: 4dc051a0301cecb4aa1a85036ace2a58, type: 3}
   dropRate: 1
   level: 1
   value: 20
+--- !u!114 &1789819784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3547857168437911117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a108df1b1ca6cc548b67a6bace5914dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

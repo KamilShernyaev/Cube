@@ -5,7 +5,6 @@ using UnityEngine;
 public class MadnessSystem 
 {
     public event EventHandler OnInsanityChanged;
-    public event EventHandler OnInsanityMaxChanged;
     public event EventHandler OnGoingCrazy;
     public event EventHandler OnCalmDown;
     public event EventHandler OnBecameInsane;
@@ -57,14 +56,6 @@ public class MadnessSystem
         OnInsanityChanged?.Invoke(this, EventArgs.Empty);
         OnCalmDown?.Invoke(this, EventArgs.Empty);
     }
-
-    public void SetHealthMax(float insantyMaxLevel) {
-        this.insantyMaxLevel = insantyMaxLevel;
-
-        OnInsanityMaxChanged?.Invoke(this, EventArgs.Empty);
-        OnInsanityChanged?.Invoke(this, EventArgs.Empty);
-    }
-
 
     public static bool TryGetMadnessSystem(GameObject getMadnessSystemPlayerController, out MadnessSystem madnessSystem, bool logErrors = false) {
         madnessSystem = null;

@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour, IGetMadnessSystem
     private PlayerInputAction playerInputAction = null;
     private PlayerAnimator playerAnimator;
 
-    
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float rotationSpeed = 10f;
     [SerializeField] private float interactRange = 1f;
@@ -160,6 +159,11 @@ public class PlayerController : MonoBehaviour, IGetMadnessSystem
                 recreation = false;
             }
         }
+    }
+
+    public void CalmDown()
+    {
+        madnessSystem.CalmDown(2f);
     }
     public MadnessSystem GetMadnessSystem() {
         return madnessSystem;
