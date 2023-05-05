@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IGetMadnessSystem
 {
-    public event EventHandler OnMadnessChangedCallback;
-
     private PlayerInputAction playerInputAction = null;
     private PlayerAnimator playerAnimator;
 
@@ -26,12 +24,14 @@ public class PlayerController : MonoBehaviour
     private bool recreation = false;
     
     [Header("Madness")]
-    [SerializeField] private int madnessLevel = 0;
-    [SerializeField] private int maxMadnessLevel = 5;
+    [SerializeField] private float maxMadnessLevel = 5;
+    private MadnessSystem madnessSystem;
+    public float testingmadness;
 
     private void Awake() 
     {
-        defaultTiredLevel = tiredLevel;
+        madnessSystem = new MadnessSystem(maxMadnessLevel);
+        testingmadness = madnessSystem.GetInsantyLavel();
         playerInputAction = new PlayerInputAction();
         rb = GetComponent<Rigidbody>();
         playerAnimator = GetComponentInChildren<PlayerAnimator>();
@@ -46,19 +46,6 @@ public class PlayerController : MonoBehaviour
         CharacterGetsTired();
         CharacterResting();
     }
-
-    // private void Update() 
-    // {
-    //     Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange);
-    //     foreach (Collider collider in colliderArray)
-    //     {
-    //         if (collider.TryGetComponent(out Test doorInteractable))
-    //         {
-    //             doorInteractable.ToggleDoor();
-    //             doorInteractable.PushButton();
-    //         }
-    //     }    
-    // }
 
     private void OnEnable() 
     {
@@ -156,21 +143,10 @@ public class PlayerController : MonoBehaviour
                 recreation = true;
                 directionMovement = Vector3.zero;
                 playerAnimator.MovementAnimation(directionMovement);
-                
+                madnessSystem.GoCrazy(0.5f);
+                Debug.Log(this.gameObject + " " + madnessSystem.GetInsantyLavel());
             }
         }
-    }
-
-    private void AddMadness()
-    {
-        madnessLevel += 1;
-        if (madnessLevel > maxMadnessLevel)
-        {
-            madnessLevel = maxMadnessLevel;
-
-            if (OnMadnessChangedCallback != null)
-                OnMadnessChangedCallback.Invoke(this, EventArgs.Empty);
-        }   
     }
 
     private void CharacterResting()
@@ -184,6 +160,9 @@ public class PlayerController : MonoBehaviour
                 recreation = false;
             }
         }
+    }
+    public MadnessSystem GetMadnessSystem() {
+        return madnessSystem;
     }
 
     public bool GetRecreation()
@@ -199,16 +178,6 @@ public class PlayerController : MonoBehaviour
     public float GetTiredLevel()
     {
         return tiredLevel;
-    }
-
-    public int GetMadnessLevel()
-    {
-        return madnessLevel;
-    }
-
-    public int GetMaxMadnessLevel()
-    {
-        return maxMadnessLevel;
     }
 
     public void SetIsSelectedCharacter(bool selectedPlayer)

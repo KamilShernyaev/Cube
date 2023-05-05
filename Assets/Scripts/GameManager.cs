@@ -1,10 +1,12 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
-{
+{   
+    public event EventHandler<PlayerController> OnChangePlayer;
     public static GameManager Instance { get; private set; }
+    
     [SerializeField] private PlayerController selectedPlayer;
     [SerializeField] private PlayerController[] playerControllerArray;
     private void Awake()
@@ -19,6 +21,10 @@ public class GameManager : MonoBehaviour
         {
             playerControllerArray = FindObjectsOfType<PlayerController>();
         }
+    }
+    private void Start() 
+    {
+        OnChangePlayer?.Invoke(this, selectedPlayer);
     }
     private void Update() 
     {
@@ -52,6 +58,7 @@ public class GameManager : MonoBehaviour
     public void SetPlayerController(PlayerController playerController)
     {   
         selectedPlayer = playerController;
+        OnChangePlayer?.Invoke(this, selectedPlayer);
     }
 
     public PlayerController GetSelectedPlayer() {return selectedPlayer;}

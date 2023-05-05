@@ -6,77 +6,42 @@ using UnityEngine.UI;
 
 public class MadnessUI : MonoBehaviour
 {
-    private GameObject[] madnessContainers;
-    private Image[] madnessFills;
+    [SerializeField] private GameObject getMadnessSystemGameObject;
+    [SerializeField] private Image image;
+    private MadnessSystem madnessSystem;
 
-    public Transform madnessParent;
-    public GameObject madnessContainerPrefab;
-
-    private void Start()
+    private void Awake() 
     {
-        madnessContainers = new GameObject[GameManager.Instance.GetSelectedPlayer().GetMadnessLevel()];
-        madnessFills = new Image[GameManager.Instance.GetSelectedPlayer().GetMaxMadnessLevel()];
-
-        GameManager.Instance.GetSelectedPlayer().OnMadnessChangedCallback += UpdateMadnessUI;
-        InstantiateHeartContainers();
-        UpdateHeartsHUD();
+        GameManager.Instance.OnChangePlayer += GameManager_OnChangePlayer;
     }
 
-    public void UpdateHeartsHUD()
+    private void GameManager_OnChangePlayer(object sender, PlayerController e)
     {
-        SetMadnessContainers();
-        SetFilledMadnessPoint();
-    }
-
-    private void UpdateMadnessUI(object sender, EventArgs e)
-    {
-        throw new NotImplementedException();
-    }
-
-     void SetMadnessContainers()
-    {
-        for (int i = 0; i < madnessContainers.Length; i++)
+        if (MadnessSystem.TryGetMadnessSystem(e.gameObject, out MadnessSystem madnessSystem)) 
         {
-            if (i < GameManager.Instance.GetSelectedPlayer().GetMaxMadnessLevel())
-            {
-                madnessContainers[i].SetActive(true);
-            }
-            else
-            {
-                madnessContainers[i].SetActive(false);
-            }
+            SetMadnessSystem(madnessSystem);
         }
     }
 
-    void SetFilledMadnessPoint()
-    {
-        for (int i = 0; i < madnessFills.Length; i++)
-        {
-            if (i < GameManager.Instance.GetSelectedPlayer().GetTiredLevel())
-            {
-                madnessFills[i].fillAmount = 1;
+    private void SetMadnessSystem(MadnessSystem madnessSystem)
+    { 
+        if (this.madnessSystem != null) {
+                this.madnessSystem.OnInsanityChanged -= MadnessSystem_OnInsanityChanged;
             }
-            else
-            {
-                madnessFills[i].fillAmount = 0;
-            }
-        }
+            this.madnessSystem = madnessSystem;
 
-        if (GameManager.Instance.GetSelectedPlayer().GetTiredLevel() % 1 != 0)
-        {
-            int lastPos = Mathf.FloorToInt(GameManager.Instance.GetSelectedPlayer().GetTiredLevel());
-            madnessFills[lastPos].fillAmount = GameManager.Instance.GetSelectedPlayer().GetTiredLevel() % 1;
-        }
+            UpdateMadnessBar();
+
+            madnessSystem.OnInsanityChanged += MadnessSystem_OnInsanityChanged;
     }
 
-    void InstantiateHeartContainers()
+    private void MadnessSystem_OnInsanityChanged(object sender, EventArgs e)
     {
-        for (int i = 0; i < GameManager.Instance.GetSelectedPlayer().GetMaxMadnessLevel(); i++)
-        {
-            GameObject temp = Instantiate(madnessContainerPrefab);
-            temp.transform.SetParent(madnessParent, false);
-            madnessContainers[i] = temp;
-            madnessFills[i] = temp.transform.Find("HeartFill").GetComponent<Image>();
-        }
+        UpdateMadnessBar();
+    }
+
+    private void UpdateMadnessBar()
+    {
+         image.fillAmount = madnessSystem.GetInsantyNormalized();
     }
 }
