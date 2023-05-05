@@ -26,15 +26,14 @@ public class PlayerController : MonoBehaviour, IGetMadnessSystem
     [Header("Madness")]
     [SerializeField] private float maxMadnessLevel = 5;
     private MadnessSystem madnessSystem;
-    public float testingmadness;
 
     private void Awake() 
     {
         madnessSystem = new MadnessSystem(maxMadnessLevel);
-        testingmadness = madnessSystem.GetInsantyLavel();
         playerInputAction = new PlayerInputAction();
         rb = GetComponent<Rigidbody>();
         playerAnimator = GetComponentInChildren<PlayerAnimator>();
+        defaultTiredLevel= tiredLevel;
     }
     
     private void FixedUpdate() 
@@ -144,16 +143,17 @@ public class PlayerController : MonoBehaviour, IGetMadnessSystem
                 directionMovement = Vector3.zero;
                 playerAnimator.MovementAnimation(directionMovement);
                 madnessSystem.GoCrazy(0.5f);
-                Debug.Log(this.gameObject + " " + madnessSystem.GetInsantyLavel());
             }
         }
     }
 
     private void CharacterResting()
     {
-        if(recreation && !isSelectedCharacter)
+        if(!isSelectedCharacter)
         {
+            if(tiredLevel <= defaultTiredLevel)
             tiredLevel += 1 *Time.deltaTime;
+            
             if(tiredLevel >= defaultTiredLevel && recreation == true)
             {
                 tiredLevel = defaultTiredLevel;

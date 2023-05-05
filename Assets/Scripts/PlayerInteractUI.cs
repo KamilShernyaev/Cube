@@ -2,12 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class PlayerInteractUI : MonoBehaviour
 {
     [SerializeField] private GameObject containerGameObject;
-    [SerializeField] private PlayerController playerController;
     [SerializeField] private TextMeshProUGUI interactTextMeshProUGUI;
+    private PlayerController playerController;
+
+    private void Awake() 
+    {
+        GameManager.Instance.OnChangePlayer += GameManager_OnChangePlayer;
+    }
+
+    private void GameManager_OnChangePlayer(object sender, PlayerController e)
+    {
+        playerController = e;
+    }
 
     private void Update() 
     {

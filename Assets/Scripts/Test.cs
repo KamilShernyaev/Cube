@@ -20,7 +20,6 @@ public class Test : MonoBehaviour
    public string sageCode;
 //    public GameObject CodePanel;
 
-   private bool _isDoorOpened = false;
     
     private void Update() 
     {
