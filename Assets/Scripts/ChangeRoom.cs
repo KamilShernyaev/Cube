@@ -11,22 +11,26 @@ public class ChangeRoom : MonoBehaviour
     public Image fadeImage;
     public float fadingTime = 2f;
     private bool isFading = false;
-
+    
     private void Start() 
     {
         cameraPlayer = Camera.main;
         fadeImage.gameObject.SetActive(false);
     }
 
-    private void OnTriggerEnter(Collider other) {
-        if(other.TryGetComponent<PlayerController>(out PlayerController playerController) && !isFading)
-        {
+    // public void OnTriggerEnter(Collider other) {
+    //     if(other.TryGetComponent<PlayerController>(out PlayerController playerController) && !isFading)
+    //     {
             
-            StartCoroutine(FadeScreen(playerController));
-        }
+    //         StartCoroutine(FadeScreen(playerController));
+    //     }
+    // }
+    public void Change()
+    {
+        StartCoroutine(FadeScreen());
     }
 
-    private IEnumerator FadeScreen(PlayerController playerController)
+    private IEnumerator FadeScreen()
     {
         fadeImage.gameObject.SetActive(true);
         isFading = true;
@@ -41,7 +45,7 @@ public class ChangeRoom : MonoBehaviour
             yield return null;
         }
 
-        playerController.gameObject.transform.position += playerChangePos;
+        GameManager.Instance.GetSelectedPlayer().gameObject.transform.position += playerChangePos;
         cameraPlayer.transform.position += cameraChagePos;
 
         t = 0f;

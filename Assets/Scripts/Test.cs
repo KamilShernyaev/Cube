@@ -10,6 +10,7 @@ public class Test : MonoBehaviour
     [SerializeField] private MeshRenderer _sphereMeshRenderer;
     [SerializeField] private Material _redMaterial;
     [SerializeField] private Material _greenMaterial;
+    [SerializeField] private ChangeRoom changeRoom;
 
     private bool _isOpen;
 
@@ -38,20 +39,6 @@ public class Test : MonoBehaviour
 
     }
 
-    // private void OnTriggerEnter(Collider other) 
-    // {
-    //     if(other.tag == "Player")
-    //     {
-    //         _isAtDoor = true;
-    //     }    
-    // }
-
-    // private void OnTriggerExit(Collider other) 
-    // {
-    //     _isAtDoor = false;
-    //     CodePanel.SetActive(false);
-    // }
-
     public void AddDigit(string digit)
     {
         _codeTextValue += digit;
@@ -61,6 +48,7 @@ public class Test : MonoBehaviour
     {
         Debug.Log("Door opened");
         PushButton();
+        changeRoom.Change();
         ClosedDoorWindow();
     }
 
