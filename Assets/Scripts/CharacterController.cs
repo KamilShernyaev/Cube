@@ -138,9 +138,9 @@ public class CharacterController : MonoBehaviour, IGetMadnessSystem
         }
     }
 
-    public void CalmDown()
+    public void CalmDown(float amount)
     {
-        madnessSystem.CalmDown(2f);
+        madnessSystem.CalmDown(amount);
     }
     private void BecameInsane()
     {

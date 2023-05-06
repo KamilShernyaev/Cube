@@ -9,16 +9,16 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     
     [SerializeField] private CharacterController selectedPlayer;
-    [SerializeField] private List< CharacterController> playerControllerArray;
+    [SerializeField] private List< CharacterController> playerControllerList;
 
     private void Awake()
     {
         Instance = this;
-       if (playerControllerArray.Count > 0)
+       if (playerControllerList.Count > 0)
         {
             if (selectedPlayer == null)
             {
-                selectedPlayer = playerControllerArray[0];
+                selectedPlayer = playerControllerList[0];
                 selectedPlayer.SetIsSelectedCharacter(true);
                 OnChangePlayer?.Invoke(this, selectedPlayer);
             }
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     }
     private void Update() 
     {
-        foreach (CharacterController playerController in playerControllerArray)
+        foreach (CharacterController playerController in playerControllerList)
         {
             if(playerController != selectedPlayer)
             {
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     {
         prevPlayerController.SetIsSelectedCharacter(false);
         
-        foreach (CharacterController nextPlayerController in playerControllerArray)
+        foreach (CharacterController nextPlayerController in playerControllerList)
         {
             if(!nextPlayerController.GetRecreation())
             {
@@ -66,9 +66,10 @@ public class GameManager : MonoBehaviour
 
     public void RemovePlayerController(CharacterController playerController)
     {
-        playerControllerArray.Remove(playerController);
+        playerControllerList.Remove(playerController);
         OnRemovePlayer?.Invoke(this, playerController);
     }
 
     public CharacterController GetSelectedPlayer() {return selectedPlayer;}
+    public List<CharacterController> GetCharacterControllerList(){return playerControllerList;}
 }

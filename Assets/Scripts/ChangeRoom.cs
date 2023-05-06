@@ -17,14 +17,7 @@ public class ChangeRoom : MonoBehaviour
         cameraPlayer = Camera.main;
         fadeImage.gameObject.SetActive(false);
     }
-
-    // public void OnTriggerEnter(Collider other) {
-    //     if(other.TryGetComponent<PlayerController>(out PlayerController playerController) && !isFading)
-    //     {
-            
-    //         StartCoroutine(FadeScreen(playerController));
-    //     }
-    // }
+    
     public void Change()
     {
         StartCoroutine(FadeScreen());

@@ -7,7 +7,7 @@ public class Sedative : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if(other.TryGetComponent<CharacterController>(out CharacterController playerController))
         {
-            playerController.CalmDown();
+            playerController.CalmDown(2f);
             Destroy(gameObject);
         }
     }
