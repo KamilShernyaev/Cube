@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UnplayableCharacter : MonoBehaviour
 {
-    public PlayerController[] characters;
+    public CharacterController[] characters;
     public bool isPlayable = true;
     private Rigidbody rb;
     private void OnEnable() 
@@ -21,7 +21,7 @@ public class UnplayableCharacter : MonoBehaviour
     private IEnumerator FollowPlayer()
     {
         int targetIndex = Random.Range(0, characters.Length);
-        PlayerController targetPlayer = characters[targetIndex];
+        CharacterController targetPlayer = characters[targetIndex];
         
         while (!isPlayable) // пока персонаж не-играбельный
         {

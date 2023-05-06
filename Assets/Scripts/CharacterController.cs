@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour, IGetMadnessSystem
+public class CharacterController : MonoBehaviour, IGetMadnessSystem
 {
     private PlayerInputAction playerInputAction = null;
     private PlayerAnimator playerAnimator;

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Sedative : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other) {
-        if(other.TryGetComponent<PlayerController>(out PlayerController playerController))
+        if(other.TryGetComponent<CharacterController>(out CharacterController playerController))
         {
             playerController.CalmDown();
             Destroy(gameObject);

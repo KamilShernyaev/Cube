@@ -8,14 +8,14 @@ public class PlayerInteractUI : MonoBehaviour
 {
     [SerializeField] private GameObject containerGameObject;
     [SerializeField] private TextMeshProUGUI interactTextMeshProUGUI;
-    private PlayerController playerController;
+    private CharacterController playerController;
 
     private void Awake() 
     {
         GameManager.Instance.OnChangePlayer += GameManager_OnChangePlayer;
     }
 
-    private void GameManager_OnChangePlayer(object sender, PlayerController e)
+    private void GameManager_OnChangePlayer(object sender, CharacterController e)
     {
         playerController = e;
     }

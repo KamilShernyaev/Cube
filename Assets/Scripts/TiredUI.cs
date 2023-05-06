@@ -5,14 +5,14 @@ using UnityEngine.UI;
 public class TiredUI : MonoBehaviour
 {
     [SerializeField] private Image tiredLevelImage;
-    private PlayerController playerController;
+    private CharacterController playerController;
 
     private void Awake() 
     {
         GameManager.Instance.OnChangePlayer += GameManager_OnChangePlayer;
     }
 
-    private void GameManager_OnChangePlayer(object sender, PlayerController e)
+    private void GameManager_OnChangePlayer(object sender, CharacterController e)
     {
         playerController = e;
         Debug.Log(playerController);

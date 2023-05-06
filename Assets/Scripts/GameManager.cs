@@ -4,19 +4,24 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {   
-    public event EventHandler<PlayerController> OnChangePlayer;
+    public event EventHandler<CharacterController> OnChangePlayer;
+    public event EventHandler<CharacterController> OnRemovePlayer;
     public static GameManager Instance { get; private set; }
     
-    [SerializeField] private PlayerController selectedPlayer;
-    [SerializeField] private List< PlayerController> playerControllerArray;
+    [SerializeField] private CharacterController selectedPlayer;
+    [SerializeField] private List< CharacterController> playerControllerArray;
 
     private void Awake()
     {
         Instance = this;
-        if (selectedPlayer == null)
+       if (playerControllerArray.Count > 0)
         {
-            selectedPlayer = playerControllerArray[0];
-            selectedPlayer.SetIsSelectedCharacter(true);
+            if (selectedPlayer == null)
+            {
+                selectedPlayer = playerControllerArray[0];
+                selectedPlayer.SetIsSelectedCharacter(true);
+                OnChangePlayer?.Invoke(this, selectedPlayer);
+            }
         }
     }
     private void Start() 
@@ -25,7 +30,7 @@ public class GameManager : MonoBehaviour
     }
     private void Update() 
     {
-        foreach (PlayerController playerController in playerControllerArray)
+        foreach (CharacterController playerController in playerControllerArray)
         {
             if(playerController != selectedPlayer)
             {
@@ -38,11 +43,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SetFatigueCharacter(PlayerController prevPlayerController)
+    public void SetFatigueCharacter(CharacterController prevPlayerController)
     {
         prevPlayerController.SetIsSelectedCharacter(false);
         
-        foreach (PlayerController nextPlayerController in playerControllerArray)
+        foreach (CharacterController nextPlayerController in playerControllerArray)
         {
             if(!nextPlayerController.GetRecreation())
             {
@@ -53,16 +58,17 @@ public class GameManager : MonoBehaviour
         } 
     }
 
-    public void SetPlayerController(PlayerController playerController)
+    public void SetPlayerController(CharacterController playerController)
     {   
         selectedPlayer = playerController;
         OnChangePlayer?.Invoke(this, selectedPlayer);
     }
 
-    public void RemovePlayerController(PlayerController playerController)
+    public void RemovePlayerController(CharacterController playerController)
     {
         playerControllerArray.Remove(playerController);
+        OnRemovePlayer?.Invoke(this, playerController);
     }
 
-    public PlayerController GetSelectedPlayer() {return selectedPlayer;}
+    public CharacterController GetSelectedPlayer() {return selectedPlayer;}
 }

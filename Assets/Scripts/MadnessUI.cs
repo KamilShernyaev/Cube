@@ -15,7 +15,7 @@ public class MadnessUI : MonoBehaviour
         GameManager.Instance.OnChangePlayer += GameManager_OnChangePlayer;
     }
 
-    private void GameManager_OnChangePlayer(object sender, PlayerController e)
+    private void GameManager_OnChangePlayer(object sender, CharacterController e)
     {
         if (MadnessSystem.TryGetMadnessSystem(e.gameObject, out MadnessSystem madnessSystem)) 
         {
