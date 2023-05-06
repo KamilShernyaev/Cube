@@ -142,6 +142,11 @@ public class CharacterController : MonoBehaviour, IGetMadnessSystem
     {
         madnessSystem.CalmDown(amount);
     }
+
+    public void GoCrazy(float amount)
+    {
+        madnessSystem.GoCrazy(amount);
+    }
     private void BecameInsane()
     {
         GameManager.Instance.RemovePlayerController(this);

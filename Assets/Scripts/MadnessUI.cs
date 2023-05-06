@@ -10,7 +10,7 @@ public class MadnessUI : MonoBehaviour
     [SerializeField] private Image image;
     private MadnessSystem madnessSystem;
 
-    private void Awake() 
+    private void Start() 
     {
         if (MadnessSystem.TryGetMadnessSystem(getMadnessSystemGameObject, out MadnessSystem madnessSystem)) 
         {
@@ -37,6 +37,6 @@ public class MadnessUI : MonoBehaviour
 
     private void UpdateMadnessBar()
     {
-         image.fillAmount = madnessSystem.GetInsantyNormalized();
+        image.fillAmount = madnessSystem.GetInsantyNormalized();
     }
 }

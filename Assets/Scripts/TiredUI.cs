@@ -8,6 +8,6 @@ public class TiredUI : MonoBehaviour
     [SerializeField] private CharacterController playerController;
 
     private void Update() {
-        tiredLevelImage.fillAmount = playerController.GetTiredLevel()/10;
+        tiredLevelImage.fillAmount = playerController.GetTiredLevel()/60;
     }
 }

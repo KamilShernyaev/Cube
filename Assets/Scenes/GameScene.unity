@@ -11932,7 +11932,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2292895256331308490, guid: 2156f9e1989212b46ae8464a07fc52e6, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 2292895256331308490, guid: 2156f9e1989212b46ae8464a07fc52e6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -24513,7 +24513,7 @@ MonoBehaviour:
   moveSpeed: 2
   rotationSpeed: 10
   interactRange: 1
-  tiredLevel: 100
+  tiredLevel: 60
   maxMadnessLevel: 5
 --- !u!4 &7339244129062817589
 Transform:
@@ -24529,7 +24529,7 @@ Transform:
   m_Children:
   - {fileID: 8038022964630892512}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &7339244129062817608
 BoxCollider:
@@ -24626,7 +24626,7 @@ MonoBehaviour:
   moveSpeed: 2
   rotationSpeed: 10
   interactRange: 1
-  tiredLevel: 100
+  tiredLevel: 60
   maxMadnessLevel: 5
 --- !u!54 &7339244129576297558
 Rigidbody:
@@ -24675,7 +24675,7 @@ MonoBehaviour:
   moveSpeed: 2
   rotationSpeed: 10
   interactRange: 1
-  tiredLevel: 100
+  tiredLevel: 60
   maxMadnessLevel: 5
 --- !u!54 &7339244130070203268
 Rigidbody:
@@ -24772,7 +24772,7 @@ MonoBehaviour:
   moveSpeed: 2
   rotationSpeed: 10
   interactRange: 1
-  tiredLevel: 100
+  tiredLevel: 60
   maxMadnessLevel: 5
 --- !u!1 &7339244130193914738
 GameObject:
@@ -26164,7 +26164,7 @@ MonoBehaviour:
   moveSpeed: 2
   rotationSpeed: 10
   interactRange: 1
-  tiredLevel: 100
+  tiredLevel: 60
   maxMadnessLevel: 5
 --- !u!4 &8438429505523750013
 Transform:
