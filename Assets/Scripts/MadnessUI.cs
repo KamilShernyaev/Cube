@@ -12,12 +12,7 @@ public class MadnessUI : MonoBehaviour
 
     private void Awake() 
     {
-        GameManager.Instance.OnChangePlayer += GameManager_OnChangePlayer;
-    }
-
-    private void GameManager_OnChangePlayer(object sender, CharacterController e)
-    {
-        if (MadnessSystem.TryGetMadnessSystem(e.gameObject, out MadnessSystem madnessSystem)) 
+        if (MadnessSystem.TryGetMadnessSystem(getMadnessSystemGameObject, out MadnessSystem madnessSystem)) 
         {
             SetMadnessSystem(madnessSystem);
         }

@@ -5,18 +5,7 @@ using UnityEngine.UI;
 public class TiredUI : MonoBehaviour
 {
     [SerializeField] private Image tiredLevelImage;
-    private CharacterController playerController;
-
-    private void Awake() 
-    {
-        GameManager.Instance.OnChangePlayer += GameManager_OnChangePlayer;
-    }
-
-    private void GameManager_OnChangePlayer(object sender, CharacterController e)
-    {
-        playerController = e;
-        Debug.Log(playerController);
-    }
+    [SerializeField] private CharacterController playerController;
 
     private void Update() {
         tiredLevelImage.fillAmount = playerController.GetTiredLevel()/10;
